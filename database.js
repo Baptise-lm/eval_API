@@ -16,9 +16,9 @@ class User{
 }
 
 class Reservation {
-  constructor(id, ReservationDate, idPossibleSlot, idUser, idTerrain) {
+  constructor(id, reservationDate, idPossibleSlot, idUser, idTerrain) {
     this.id = id;
-    this.ReservationDate = ReservationDate;
+    this.reservationDate = reservationDate;
     this.idPossibleSlot = idPossibleSlot;
     this.idUser = idUser;
     this.idTerrain = idTerrain;
@@ -46,8 +46,8 @@ const users = [
 ];
 
 const reservations = [
-  new Reservation(1, newDate("2023-11-15"), 2, 1, 3),
-  new Reservation(2, newDate("2023-12-10"), 1, 2, 1),
+  new Reservation(1, new Date("2023-11-15"), 2, 1, 3),
+  new Reservation(2, new Date("2023-12-10"), 1, 2, 1),
 ];
 
 const possibleslots = [
@@ -68,3 +68,5 @@ const possibleslots = [
   new PossibleSlot(15, "20:30"),
   new PossibleSlot(16, "21:15"),
 ];
+
+module.exports = {Terrain, User, Reservation, PossibleSlot, terrains, users, reservations, possibleslots};
