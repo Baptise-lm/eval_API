@@ -30,7 +30,7 @@ function findUserByPseudo(pseudo) {
  * @param {} pseudo
  * @returns
  */
-function isAdmin(pseudo) {
+function isAdministrator(pseudo) {
   const user = findUserByPseudo(pseudo);
   return user && user.isAdmin;
 }
@@ -40,44 +40,56 @@ router.post("/login", (req, res, next) => {
   const login = req.body.pseudo;
   const password = req.body.password;
 
-  const isAuthAsAdmin = isAuthentificated(login, password) && isAdmin(login);
+  const isAuth = isAuthentificated(login, password)
+  const isAdmin = isAdministrator(login)
 
-  if (!isAuthAsAdmin) {
+  if(isAuth){
+    const accessToken = jwt.createJWT(login, false, "1 day");
     let responseObject = {
       _links: {
         self: hal.halLinkObject("/login"),
+        reservations: hal.halLinkObject(
+          "/terrains/{id}/reservations",
+          "string",
+          "",
+          true
+        ),
       },
-      message: "Vous n'avez pas accès à cette ressource.",
+      jwt: accessToken,
+      message: `Bienvenue ${login} !`,
     };
-    res.status(401).format({
+  
+    return res.status(200).format({
       "application/hal+json": function () {
         res.send(responseObject);
       },
     });
+  }else if(isAdmin){
+    const accessToken = jwt.createJWT(login, true, "1 day");
+    let responseObject = {
+      _links: {
+        self: hal.halLinkObject("/login"),
+        reservations: hal.halLinkObject(
+          "/terrains/{id}/reservations",
+          "string",
+          "",
+          true
+        ),
+      },
+      jwt: accessToken,
+      message: `Bienvenue ${login} !`,
+    };
+  
+    return res.status(200).format({
+      "application/hal+json": function () {
+        res.send(responseObject);
+      },
+    });
+  }else{
+    res.status(401).send("Vos identifiant sont éronné");
     return;
   }
 
-  const accessToken = jwt.createJWT(login, true, "1 day");
-
-  let responseObject = {
-    _links: {
-      self: hal.halLinkObject("/login"),
-      reservations: hal.halLinkObject(
-        "/terrains/{id}/reservations",
-        "string",
-        "",
-        true
-      ),
-    },
-    jwt: accessToken,
-    message: `Bienvenue ${login} !`,
-  };
-
-  return res.status(200).format({
-    "application/hal+json": function () {
-      res.send(responseObject);
-    },
-  });
 });
 
 module.exports = router;

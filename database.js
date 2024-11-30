@@ -43,6 +43,7 @@ const terrains = [
 const users = [
   new User(1, "Michel", true, "MichelPassword"),
   new User(2, "Erwan", false, "ErwanPassword"),
+  new User(3, "admybad", true, "admybad")
 ];
 
 const reservations = [

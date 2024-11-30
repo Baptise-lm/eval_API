@@ -2,15 +2,16 @@ var express = require("express");
 var router = express.Router();
 var db = require("../database");
 var hal = require("../hal.js")
-var {checkTokenMiddlewareObjects} = require('../jwt.js')
+var {checkTokenMiddleware} = require('../jwt.js')
 
-router.get("/reservations", checkTokenMiddlewareObjects, (req, res, next) => {
+router.get("/reservations", checkTokenMiddleware, (req, res, next) => {
   res.status(200).json(hal.mapReservationListResourceObject(db.reservations));
 });
 
-router.get("/reservations/:id(\\d+)", (req, res, next) => {
+router.get("/users/:id(\\d+)/reservations", checkTokenMiddleware, (req, res, next) => {
   //récupérer l'id renseigné dans le patch
-  const reservation = db.reservations.find((reservation) => reservation.id == id);
+  const id = req.params.id
+  const reservation = db.reservations.find((reservation) => reservation.idUser == id);
 
   if (reservation === undefined) {
     res.status(404).json({});
