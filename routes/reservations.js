@@ -8,7 +8,7 @@ router.get("/reservations", (req, res, next) => {
 });
 
 router.get("/reservations/:id(\\d+)", (req, res, next) => {
-  //récupérer l'id renseigné dans le patch
+  
   const reservation = db.reservations.find((reservation) => reservation.id == id);
 
   if (reservation === undefined) {
