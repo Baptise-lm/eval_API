@@ -2,9 +2,10 @@ var express = require("express");
 var router = express.Router();
 var db = require("../database");
 var hal = require("../hal.js")
+var {checkTokenMiddlewareObjects} = require('../jwt.js')
 
-router.get("/reservations", (req, res, next) => {
-  res.status(200).json(hal.mapReservationListToResourceObject(db.reservations));
+router.get("/reservations", checkTokenMiddlewareObjects, (req, res, next) => {
+  res.status(200).json(hal.mapReservationListResourceObject(db.reservations));
 });
 
 router.get("/reservations/:id(\\d+)", (req, res, next) => {
