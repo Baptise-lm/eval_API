@@ -9,7 +9,7 @@
 [Sources](#sources)<br>
 
 ## Lancer le projet
----
+
 Installer les dépendances et lancer le serveur :
 ```
 npm install
@@ -22,7 +22,7 @@ node genkey.js
 ```
 
 ## Tester
----
+
 S'authentifier en tant qu'adminitrateur (pseudo et password : `admybad`)
 ```
 curl -X POST localhost:3000/login \
