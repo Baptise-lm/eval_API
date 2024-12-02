@@ -4,22 +4,22 @@ var db = require("../database");
 var hal = require("../hal.js")
 var {checkTokenMiddlewareAdmin} = require('../jwt.js')
 
-router.get("/terrains", (req, res, next) => {
-  res.status(200).json(hal.mapTerrainListToResourceObject(db.terrains));
+router.get("/courts", checkTokenMiddlewareAdmin,(req, res, next) => {
+  res.status(200).json(hal.mapCourtListToResourceObject(db.courts));
 });
 
-router.get("/terrains/:id(\\d+)",checkTokenMiddlewareAdmin, (req, res, next) => {
+router.get("/courts/:id(\\d+)",checkTokenMiddlewareAdmin, (req, res, next) => {
   //récupérer l'id renseigné dans le patch
   const id = req.params.id
-  const terrain = db.terrains.find((terrain) => terrain.id == id);
+  const court = db.courts.find((court) => court.id == id);
 
-  if (terrain === undefined) {
+  if (court === undefined) {
     res.status(404).json({});
-    console.log("Le terrain n'a pas été trouvé");
+    console.log("Le court n'a pas été trouvé");
   }
 
-  const mapTerraintoResourceObject = hal.mapTerraintoResourceObject(terrain)
-  res.status(200).json(mapTerraintoResourceObject);
+  const mapCourttoResourceObject = hal.mapCourttoResourceObject(court)
+  res.status(200).json(mapCourttoResourceObject);
 });
 
 module.exports = router;

@@ -2,7 +2,7 @@ var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
-var terrainsRouter = require('./routes/terrains')
+var courtsRouter = require('./routes/courts')
 var reservationsRouter = require('./routes/reservations')
 var authRouter = require('./routes/auth')
 
@@ -14,10 +14,10 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use('/',terrainsRouter, reservationsRouter, authRouter)
+app.use('/',courtsRouter, reservationsRouter, authRouter)
 
-app.get('/badminton',(req,res)=>{
-  res.send('badminton')
+app.get('/',(req,res)=>{
+  res.send('Bienvenue sur mon API RESTFULL de court de badminton')
 })
 
 module.exports = app;

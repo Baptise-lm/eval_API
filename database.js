@@ -1,4 +1,6 @@
-class Terrain{
+var bcrypt = require('bcrypt')
+
+class Court{
   constructor(id, name, disponibility) {
     this.id = id;
     this.name = name;
@@ -11,17 +13,17 @@ class User{
       this.id = id;
       this.pseudo = pseudo;
       this.isAdmin = isAdmin;
-      this.password = password;
+      this.password = bcrypt.hashSync(password,1);
   }
 }
 
 class Reservation {
-  constructor(id, reservationDate, idPossibleSlot, idUser, idTerrain) {
+  constructor(id, reservationDate, idPossibleSlot, idUser, idCourt) {
     this.id = id;
     this.reservationDate = reservationDate;
     this.idPossibleSlot = idPossibleSlot;
     this.idUser = idUser;
-    this.idTerrain = idTerrain;
+    this.idCourt = idCourt;
   }
 }
 
@@ -33,11 +35,11 @@ class PossibleSlot {
 }
 
 
-const terrains = [
-  new Terrain(1, "A", true),
-  new Terrain(2, "B", false),
-  new Terrain(3, "C", true),
-  new Terrain(4, "D", true),
+const courts = [
+  new Court(1, "A", true),
+  new Court(2, "B", false),
+  new Court(3, "C", true),
+  new Court(4, "D", true),
 ];
 
 const users = [
@@ -70,4 +72,4 @@ const possibleslots = [
   new PossibleSlot(16, "21:15"),
 ];
 
-module.exports = {Terrain, User, Reservation, PossibleSlot, terrains, users, reservations, possibleslots};
+module.exports = {Court, User, Reservation, PossibleSlot, courts, users, reservations, possibleslots};

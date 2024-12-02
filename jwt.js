@@ -38,7 +38,7 @@ const checkTokenMiddlewareAdmin = (req, res, next) => {
     }
 
     if(jsonwebtoken.isAdmin === true){
-    //La vérification a réussi !
+    //La vérification a réussi
     console.log('TOKEN VERIFIE !')
 
     res.locals.decodedToken = decodedToken

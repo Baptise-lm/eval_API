@@ -1,10 +1,4 @@
-/**
- * Export des fonctions helpers pour la spécification HAL
- * Voir la spécification HAL : https://stateless.group/hal_specification.html
- * Voir la spécification HAL (RFC, source) : https://datatracker.ietf.org/doc/html/draft-kelly-json-hal
- */
-
-const {terrains} = require("./database.js")
+const {courts} = require("./database.js")
 
 /**
  * Retourne un Link Object, conforme à la spécification HAL
@@ -61,43 +55,43 @@ function mapReservationtoResourceObject(reservationData, baseURL) {
       reservationDate: reservationData.reservationDate,
       idPossibleSlot: reservationData.idPossibleSlot,
       idUser: reservationData.idUser,
-      idTerrain: reservationData.idTerrain,
+      idCourt: reservationData.idCourt,
   }
 }
 
 
 /**
-* @param {*} terrainData
+* @param {*} courtData
 * @returns
 */
-function mapTerrainListToResourceObject(terrainData){
+function mapCourtListToResourceObject(courtData){
 
-  const embedded = terrains.map( terrain => mapTerraintoResourceObject(terrain))
+  const embedded = courts.map( court => mapCourttoResourceObject(court))
 
   return{
     "_links":{
-        "self": halLinkObject(`/terrains`),
+        "self": halLinkObject(`/courts`),
 
     },
     "_embedded":{
-      "concerts": embedded,
+      "courts": embedded,
     }
   }
 }
 
-function mapTerraintoResourceObject(terrainData, baseURL) {
+function mapCourttoResourceObject(courtData, baseURL) {
   return {
       "_links": [{
 
-          "self": halLinkObject(`/terrains/${terrainData.id}`),
-          "terrains": halLinkObject(`/terrain`),
+          "self": halLinkObject(`/courts/${courtData.id}`),
+          "courts": halLinkObject(`/court`),
       }],
 
-      name: terrainData.name,
-      disponibility: terrainData.disponibility
+      name: courtData.name,
+      disponibility: courtData.disponibility
   }
 }
 
 
 
-module.exports = { halLinkObject, mapReservationtoResourceObject, mapReservationListResourceObject, mapTerraintoResourceObject, mapTerrainListToResourceObject };
+module.exports = { halLinkObject, mapReservationtoResourceObject, mapReservationListResourceObject, mapCourttoResourceObject, mapCourtListToResourceObject };

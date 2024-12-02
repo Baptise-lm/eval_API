@@ -49,7 +49,7 @@ router.post("/login", (req, res, next) => {
       _links: {
         self: hal.halLinkObject("/login"),
         reservations: hal.halLinkObject(
-          "/terrains/{id}/reservations",
+          "/courts/{id}/reservations",
           "string",
           "",
           true
@@ -70,7 +70,7 @@ router.post("/login", (req, res, next) => {
       _links: {
         self: hal.halLinkObject("/login"),
         reservations: hal.halLinkObject(
-          "/terrains/{id}/reservations",
+          "/courts/{id}/reservations",
           "string",
           "",
           true
