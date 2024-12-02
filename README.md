@@ -3,7 +3,7 @@
 ## Sommaire
 
 [Lancer le projet](#lancer-le-projet)<br>
-[Jouer](#tester)<br>
+[Tester](#tester)<br>
 [Dictionnaire des données](#dictionnaire-des-données)<br>
 [Difficultés rencontrées](#difficultés-rencontrées)<br>
 [Sources](#sources)<br>
